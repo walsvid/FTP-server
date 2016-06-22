@@ -1,0 +1,6 @@
+C:\git\Ftp\FtpServer\FtpServer\bin\Debug\FtpServer.exe
+C:\git\Ftp\FtpServer\FtpServer\bin\Debug\FtpServer.pdb
+C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.Properties.Resources.resources
+C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.csproj.GenerateResource.Cache
+C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.exe
+C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.pdb
