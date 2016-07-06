@@ -13,6 +13,7 @@ namespace FtpServer
     {
         TcpListener myTcpListener = null;
         private Thread listenThread;
+        string _oldName;
 
         // 保存用户名和密码
         Dictionary<string, string> users;
@@ -189,6 +190,15 @@ namespace FtpServer
                                 case "DELE":
                                     CommandDELE(user, param);
                                     break;
+                                case "RNFR":
+                                    CommandRNFR(user, param);
+                                    break;
+                                case "RNTO":
+                                    CommandRNTO(user, param);
+                                    break;
+                                case "MKD":
+                                    CommandMKD(user, param);
+                                    break;
                                 // 使用Type命令在ASCII和二进制模式进行变换
                                 case "TYPE":
                                     CommandTYPE(user, param);
@@ -361,7 +371,7 @@ namespace FtpServer
                 DirectoryInfo d = new DirectoryInfo(dir[i]);
 
                 // 按下面的格式输出目录列表
-                sendString += @"dwr-\t" + Dns.GetHostName() + "\t" + dateTimeFormat.GetAbbreviatedMonthName(d.CreationTime.Month)
+                sendString += "dwr-\t" + Dns.GetHostName() + "\t\t" + dateTimeFormat.GetAbbreviatedMonthName(d.CreationTime.Month)
                     + d.CreationTime.ToString(" dd yyyy") + "\t" + folderName + Environment.NewLine;
             }
 
@@ -456,12 +466,58 @@ namespace FtpServer
             // 删除的文件全名
             string path = user.currentDir + filename;
             AddInfo("正在删除文件" + filename + "...");
-            File.Delete(path);
+            
+            if (File.Exists(path))
+            {
+                // 是文件
+                File.Delete(path);
+            }
+            else if (Directory.Exists(path))
+            {
+                // 是文件夹
+                Directory.Delete(path, true);
+            }
             AddInfo("删除成功");
             sendString = "250 File " + filename + " has been deleted.";
             RepleyCommandToUser(user, sendString);
         }
 
+        private void CommandRNFR(User user, string oldFileName)
+        {
+            string sendString = "";
+            _oldName = oldFileName;
+            AddInfo("Old file name received" + oldFileName + "...");
+            sendString = "250 old file received";
+            RepleyCommandToUser(user, sendString);
+        }
+
+        private void CommandRNTO(User user, string newFileName)
+        {
+            string sendString = "";
+            AddInfo("New file name received" + newFileName + "...");
+            string oldPath = user.currentDir + _oldName;
+            string newPath = user.currentDir + newFileName;
+            File.Move(oldPath, newPath);
+            sendString = "250 new file name changed";
+            RepleyCommandToUser(user, sendString);
+        }
+
+        private void CommandMKD(User user, string dirName)
+        {
+            string sendString = string.Empty;
+            string path = user.currentDir + dirName;
+            if (Directory.Exists(path))
+            {
+                sendString = "That path exists already.";
+                RepleyCommandToUser(user, sendString);
+                return;
+            }
+            AddInfo("正在创建文件夹" + dirName);
+            Directory.CreateDirectory(path);
+            AddInfo(dirName + "创建成功");
+            sendString = "250 directory " + dirName + " has been made.";
+            RepleyCommandToUser(user, sendString);
+        }
         #endregion
 
         #region 模式设置命令
@@ -659,6 +715,16 @@ namespace FtpServer
                 user.dataSession.Close();
                 fs.Close();
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxFtpRoot_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

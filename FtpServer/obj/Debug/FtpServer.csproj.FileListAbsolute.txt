@@ -4,3 +4,11 @@ C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.Properties.Resources.resource
 C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.csproj.GenerateResource.Cache
 C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.exe
 C:\git\Ftp\FtpServer\FtpServer\obj\Debug\FtpServer.pdb
+C:\git\FTP-server\FtpServer\obj\Debug\FtpServer.exe
+C:\git\FTP-server\FtpServer\obj\Debug\FtpServer.pdb
+C:\git\FTP-server\FtpServer\bin\Debug\FtpServer.exe
+C:\git\FTP-server\FtpServer\bin\Debug\FtpServer.pdb
+C:\git\FTP-server\FtpServer\obj\Debug\FtpServer.csprojResolveAssemblyReference.cache
+C:\git\FTP-server\FtpServer\obj\Debug\FtpServer.FtpServerForm.resources
+C:\git\FTP-server\FtpServer\obj\Debug\FtpServer.Properties.Resources.resources
+C:\git\FTP-server\FtpServer\obj\Debug\FtpServer.csproj.GenerateResource.Cache
